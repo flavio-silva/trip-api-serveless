@@ -26,4 +26,9 @@ public class TripRepository {
         return mapper.query(Trip.class, queryExpression);
 
     }
+
+    public List<Trip> findById(Long id) {
+
+        return null;
+    }
 }
