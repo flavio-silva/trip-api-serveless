@@ -10,7 +10,7 @@ public class HandlerRequest {
 	private Map<String, String> queryStringParameters;
 
 	public HandlerRequest(String body, String path, Map<String, String> pathParameters,
-                          Map<String, String> queryStringParameters) {
+						  Map<String, String> queryStringParameters) {
 		super();
 		this.body = body;
 		this.path = path;
