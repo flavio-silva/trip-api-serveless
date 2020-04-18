@@ -6,7 +6,6 @@ import br.com.fiap.model.HandlerResponse;
 import br.com.fiap.model.Trip;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
-
 import java.util.ArrayList;
 import java.util.List;
 

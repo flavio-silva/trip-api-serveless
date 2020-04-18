@@ -41,6 +41,7 @@ public class TripRepository {
     }
 
     public Trip save(Trip trip) {
+        mapper.save(trip);
         return trip;
     }
 }
