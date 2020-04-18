@@ -21,6 +21,9 @@ Resources:
       CodeUri: target/trip-api-1.0.0-SNAPSHOT-jar-with-dependencies.jar
       Handler: br.com.fiap.handler.CreateTrip::handleRequest
       Runtime: java8
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref TripTable
       Events:
         CreateTrip:
           Type: Api
@@ -31,18 +34,48 @@ Resources:
   GetTripByPeriodFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: target/study-datalake-1.0.0-SNAPSHOT-jar-with-dependencies.jar
+      CodeUri: target/trip-api-1.0.0-SNAPSHOT-jar-with-dependencies.jar
       Handler: br.com.fiap.handler.GetTripByPeriod::handleRequest
       Runtime: java8
       Policies:
         - DynamoDBCrudPolicy:
-            TableName: !Ref StudyTable
+            TableName: !Ref TripTable
       Events:
         GetStudyRecordsByPeriod:
           Type: Api
           Properties:
-            Path: /trip/findBetweenDates
+            Path: /trips/findBetweenDates
             Method: get
             RequestParameters:
               - method.request.querystring.starts
               - method.request.querystring.ends
+  GetTripByIdFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: target/trip-api-1.0.0-SNAPSHOT-jar-with-dependencies.jar
+      Handler: br.com.fiap.handler.GetTripById::handleRequest
+      Runtime: java8
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref TripTable
+      Events:
+        GetTripById:
+          Type: Api
+          Properties:
+            Path: /trips/{id}
+            Method: get
+  TripTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: trip
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+        - AttributeName: date
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+        - AttributeName: date
+          KeyType: RANGE
+      BillingMode: PAY_PER_REQUEST

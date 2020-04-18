@@ -3,6 +3,7 @@ package br.com.fiap.model;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,13 +13,14 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@DynamoDBTable(tableName = "trip")
 public class Trip {
 
     @DynamoDBHashKey(attributeName = "id")
-    private Long id;
+    private String id;
 
-    @DynamoDBRangeKey(attributeName = "dateTrip")
-    private String dateTrip;
+    @DynamoDBRangeKey(attributeName = "date")
+    private String date;
 
     @DynamoDBAttribute(attributeName = "country")
     private String country;
