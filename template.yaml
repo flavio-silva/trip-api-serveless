@@ -27,3 +27,22 @@ Resources:
           Properties:
             Path: /trips
             Method: post
+
+  GetTripByPeriodFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: target/study-datalake-1.0.0-SNAPSHOT-jar-with-dependencies.jar
+      Handler: br.com.fiap.handler.GetTripByPeriod::handleRequest
+      Runtime: java8
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref StudyTable
+      Events:
+        GetStudyRecordsByPeriod:
+          Type: Api
+          Properties:
+            Path: /trip/findBetweenDates
+            Method: get
+            RequestParameters:
+              - method.request.querystring.starts
+              - method.request.querystring.ends
