@@ -10,5 +10,4 @@ public class TripRepository {
     public Trip save(Trip trip) {
         return trip;
     }
-
 }
