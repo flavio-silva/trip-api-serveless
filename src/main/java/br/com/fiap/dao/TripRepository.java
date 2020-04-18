@@ -26,9 +26,18 @@ public class TripRepository {
 
     }
 
-    public List<Trip> findById(Long id) {
+    public List<Trip> findById(String id) {
 
-        return null;
+        final Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
+        eav.put(":id", new AttributeValue().withS(id));
+
+        final DynamoDBQueryExpression<Trip> queryExpression = new DynamoDBQueryExpression<Trip>()
+                .withKeyConditionExpression("id = :id")
+                .withExpressionAttributeValues(eav);
+
+        final List<Trip> trips = mapper.query(Trip.class, queryExpression);
+
+        return trips;
     }
 
     public Trip save(Trip trip) {

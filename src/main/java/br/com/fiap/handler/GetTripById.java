@@ -20,7 +20,7 @@ public class GetTripById implements RequestHandler<HandlerRequest, HandlerRespon
 
 		context.getLogger().log("Searching for registered trips for id equals " + id);
 
-		final List<Trip> trips = this.repository.findById(Long.parseLong(id));
+		final List<Trip> trips = this.repository.findById((id));
 
 		if (trips == null || trips.isEmpty()) {
 			return HandlerResponse.builder().setStatusCode(404).build();
