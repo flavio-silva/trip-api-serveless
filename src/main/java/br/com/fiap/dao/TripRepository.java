@@ -13,7 +13,6 @@ public class TripRepository {
 
     private static final DynamoDBMapper mapper = DynamoDbManager.mapper();
 
-
     public List<Trip> findByPeriod(String starts, String ends) {
         final Map<String, AttributeValue> eav = new HashMap<String, AttributeValue>();
         eav.put(":starts", new AttributeValue().withS(starts));
@@ -30,5 +29,9 @@ public class TripRepository {
     public List<Trip> findById(Long id) {
 
         return null;
+    }
+
+    public Trip save(Trip trip) {
+        return trip;
     }
 }

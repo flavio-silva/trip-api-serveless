@@ -1,5 +1,0 @@
-br\com\fiap\handler\CreateTrip.class
-br\com\fiap\model\HandlerRequest.class
-br\com\fiap\model\HandlerResponse.class
-br\com\fiap\dao\DynamoDbManager.class
-br\com\fiap\model\HandlerResponse$Builder.class
