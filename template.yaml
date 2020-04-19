@@ -44,7 +44,7 @@ Resources:
         GetStudyRecordsByPeriod:
           Type: Api
           Properties:
-            Path: /trips/findBetweenDates
+            Path: /trips/findByPeriod
             Method: get
             RequestParameters:
               - method.request.querystring.starts
