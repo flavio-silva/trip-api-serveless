@@ -8,6 +8,7 @@ import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public class TripRepository {
 
@@ -41,6 +42,9 @@ public class TripRepository {
     }
 
     public Trip save(Trip trip) {
+        UUID uuid = UUID.randomUUID();
+        trip.setId(uuid.toString());
+
         mapper.save(trip);
         return trip;
     }
