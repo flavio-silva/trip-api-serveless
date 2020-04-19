@@ -13,7 +13,7 @@ public class S3PhotoBucketService {
         builder.append("-");
         builder.append(trip.getCity());
         builder.append("-");
-        builder.append(trip.getDateTrip());
+        builder.append(trip.getDate());
         builder.append("-");
 
         int min = 100000;
