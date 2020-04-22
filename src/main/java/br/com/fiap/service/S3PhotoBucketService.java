@@ -1,29 +1,37 @@
 package br.com.fiap.service;
 
-import br.com.fiap.model.Trip;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
-public class S3PhotoBucketService {
+class S3PhotoBucketService {
 
-    public static String createBucket(Trip trip) {
+    static String createBucket(String name) {
+
+        name = name.toLowerCase().replace(" ", "-");
+
+        String endpoint = System.getenv("ENDPOINT_OVERRIDE");
+
+        if (endpoint != null && !endpoint.isEmpty()) {
+            return encodeValue(name) + ".s3.fake-region.amazonaws.com";
+        }
+
         AmazonS3 s3Client = AmazonS3ClientBuilder.defaultClient();
-        StringBuilder builder = new StringBuilder();
-        builder.append(trip.getCountry());
-        builder.append("-");
-        builder.append(trip.getCity());
-        builder.append("-");
-        builder.append(trip.getDate());
-        builder.append("-");
+        s3Client.createBucket(name);
 
-        int min = 100000;
-        int max = 999999;
-        int random_int = (int)(Math.random() * (max - min + 1) + min);
+        return s3Client.getUrl(name, "").toString();
+    }
 
-        builder.append(random_int);
-        s3Client.createBucket(builder.toString());
+    static private String encodeValue(String value) {
+        try {
+            return URLEncoder.encode(value, StandardCharsets.UTF_8.toString());
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
-        return s3Client.getUrl(builder.toString(), "").toString();
+        return "";
     }
 
 }
