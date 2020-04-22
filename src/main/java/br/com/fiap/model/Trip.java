@@ -7,12 +7,10 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @DynamoDBTable(tableName = "trip")
 public class Trip {
 
@@ -30,4 +28,22 @@ public class Trip {
 
     @DynamoDBAttribute(attributeName = "urlPhotos")
     private String urlPhotos;
+
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(getCountry());
+        builder.append("-");
+        builder.append(getCity());
+        builder.append("-");
+        builder.append(getDate());
+        builder.append("-");
+
+        int min = 100000;
+        int max = 999999;
+        int random_int = (int)(Math.random() * (max - min + 1) + min);
+
+        builder.append(random_int);
+
+        return builder.toString();
+    }
 }
