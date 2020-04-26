@@ -15,6 +15,14 @@
 + mvn install
 + sam local start-api --env-vars test_environment_<your-operation-system>.json
 
+## How to run the project on AWS
+
+### Steps
++ aws s3api create-bucket --bucket <BUCKET_NAME> --region us-east-1
++ sam package --template-file template.yaml --output-template-file packaged.yaml --s3-bucket <BUCKET_NAME> --region=us-east-1
++ sam deploy --template-file packaged.yaml --stack-name serveless-work --capabilities CAPABILITY_IAM --region us-east-1
+
+
 ### Enpoints
 
 #### Create a trip
