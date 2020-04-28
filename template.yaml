@@ -24,6 +24,11 @@ Resources:
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref TripTable
+        - Statement:
+            Effect: Allow
+            Action:
+                - s3:*
+            Resource: '*'
       Events:
         CreateTrip:
           Type: Api
