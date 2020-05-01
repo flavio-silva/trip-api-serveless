@@ -30,7 +30,7 @@ public class TripRepository {
         return mapper.scan(Trip.class, scanExpression);
     }
 
-    public List<Trip> findById(String id) {
+    public Trip findById(String id) {
 
         Map<String, AttributeValue> eav = new HashMap<>();
         eav.put(":id", new AttributeValue().withS(id));
@@ -39,7 +39,11 @@ public class TripRepository {
                 .withKeyConditionExpression("id = :id")
                 .withExpressionAttributeValues(eav);
 
-        return mapper.query(Trip.class, queryExpression);
+        if (!mapper.query(Trip.class, queryExpression).isEmpty()) {
+            return mapper.query(Trip.class, queryExpression).get(0);
+        }
+
+        return null;
     }
 
     public Trip save(Trip trip) {
