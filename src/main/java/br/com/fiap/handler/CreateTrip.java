@@ -1,8 +1,8 @@
 package br.com.fiap.handler;
 
-import br.com.fiap.model.HandlerRequest;
-import br.com.fiap.model.HandlerResponse;
-import br.com.fiap.model.Trip;
+import br.com.fiap.http.HandlerRequest;
+import br.com.fiap.http.HandlerResponse;
+import br.com.fiap.entity.Trip;
 import br.com.fiap.service.TripService;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
@@ -13,24 +13,16 @@ public class CreateTrip implements RequestHandler<HandlerRequest, HandlerRespons
     private TripService service = new TripService();
 
     @Override
-    public HandlerResponse handleRequest(final HandlerRequest request, final Context context) {
-        Trip trip;
+    public HandlerResponse handleRequest(HandlerRequest request, Context context) {
         try {
-            trip = new ObjectMapper().readValue(request.getBody(), Trip.class);
+            Trip trip = new ObjectMapper().readValue(request.getBody(), Trip.class);
+            return new HandlerResponse()
+                    .setBody(service.save(trip))
+                    .setStatusCode(201);
         } catch (IOException exception) {
-            return HandlerResponse
-                    .builder()
-                    .setStatusCode(400)
-                    .setRawBody("Cannot create a trip ")
-                    .build();
+            return new HandlerResponse()
+                    .setBody("Cannot create a trip")
+                    .setStatusCode(400);
         }
-        context.getLogger().log("Creating a new trip");
-        Trip savedTrip = service.save(trip);
-
-        return HandlerResponse
-                .builder()
-                .setStatusCode(201)
-                .setObjectBody(savedTrip)
-                .build();
     }
 }

@@ -1,7 +1,7 @@
 package br.com.fiap.service;
 
-import br.com.fiap.dao.TripRepository;
-import br.com.fiap.model.Trip;
+import br.com.fiap.repository.TripRepository;
+import br.com.fiap.entity.Trip;
 
 public class TripService {
 

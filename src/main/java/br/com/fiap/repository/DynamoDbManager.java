@@ -1,4 +1,4 @@
-package br.com.fiap.dao;
+package br.com.fiap.repository;
 
 import com.amazonaws.client.builder.AwsClientBuilder.EndpointConfiguration;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
