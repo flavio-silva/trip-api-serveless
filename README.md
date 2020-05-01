@@ -16,8 +16,7 @@
 ## How to run the project on AWS
 + aws s3api create-bucket --bucket <BUCKET_NAME> --region us-east-1
 + sam package --template-file template.yaml --output-template-file packaged.yaml --s3-bucket <BUCKET_NAME> --region=us-east-1
-+ sam deploy --template-file packaged.yaml --stack-name serveless-work --capabilities CAPABILITY_IAM --region us-east-1
-+ Function create trip requires AmazonS3FullAccess policy to works correctly. You need to attach that policy manually on function session from IAM, therefore the function will be able to create a bucket dynamically 
++ sam deploy --template-file packaged.yaml --stack-name serveless-work --capabilities CAPABILITY_IAM --region us-east-1 
 
 
 ### Enpoints
