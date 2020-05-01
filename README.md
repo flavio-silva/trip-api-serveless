@@ -10,7 +10,8 @@
 
 ## Prepare the code
 1. Clone repository: `git clone https://github.com/flavio-silva/trip-api-serveless.git`
-2. Install Maven Dependencies: `mvn install`
+2. cd trip-api-serveless
+3. Install Maven Dependencies: `mvn install`
 
 ## How to run the project locally
 1. Start DynamoDB in container Docker: `docker run -p 8000:8000 -v $(pwd)/local/dynamodb:/data/ amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb -dbPath /data`
@@ -37,7 +38,7 @@ POST /trips
 
 ``
 {
- "date": "2019-05-01",
+ "date": "2020/05/01",
   "country": "Brazil",
   "city": "Rio de Janeiro"
 }
@@ -46,7 +47,7 @@ POST /trips
 GET /trips/{id}
 
 #### Find by period
-GET /trips/findByPeriod?start={date}&end={date}
+GET /trips/findByPeriod?start={date(YYYY/MM/DD)}&end={date(YYYY/MM/DD)}
 
 
 ## Developers Team
