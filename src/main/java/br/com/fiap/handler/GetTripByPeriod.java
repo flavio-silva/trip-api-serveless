@@ -6,26 +6,40 @@ import br.com.fiap.http.HandlerResponse;
 import br.com.fiap.entity.Trip;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class GetTripByPeriod implements RequestHandler<HandlerRequest, HandlerResponse> {
 
-	private final TripRepository repository = new TripRepository();
+	private TripRepository repository = new TripRepository();
 
 	@Override
 	public HandlerResponse handleRequest(HandlerRequest request, Context context) {
-		final String starts = request.getQueryStringParameters().get("start");
-		final String ends = request.getQueryStringParameters().get("end");
+		String start = request.getQueryStringParameters().get("start");
+		String end = request.getQueryStringParameters().get("end");
+		try {
+			if (start == null || end == null) {
+				throw new IOException("\"{\\\"errors\\\": \\\"Missing query parameters\\\"}\"");
+			}
 
-		List<Trip> trips = this.repository.findByPeriod(starts, ends);
+			String dateRegex = "^[0-9]{4}/[0-9]{2}/[0-9]{2}$";
+			if (!end.matches(dateRegex) || !start.matches(dateRegex)) {
+				throw new IOException("{ \"errors\": \"The date field is invalid.\" }");
+			}
 
-		if (trips == null) {
-			trips = new ArrayList<>();
+			List<Trip> trips = this.repository.findByPeriod(start, end);
+
+			trips = trips == null ? new ArrayList<>() : trips;
+
+			return new HandlerResponse()
+					.setStatusCode(200)
+					.setBody(trips);
+		} catch (IOException exception) {
+			return new HandlerResponse()
+			.setStatusCode(400)
+			.setBody(exception.getMessage());
 		}
-
-		return new HandlerResponse()
-				.setStatusCode(200)
-				.setBody(trips);
 	}
 }
