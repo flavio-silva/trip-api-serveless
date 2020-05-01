@@ -47,3 +47,12 @@ GET /trips/{id}
 
 #### Find by period
 GET /trips/findByPeriod?start={date}&end={date}
+
+
+## Developers Team
++ Flavio Alves Ferreira da Silva - RM 333565
++ Pedro Madi Della Coletta - RM 334109
++ Rafael Miranda de Almeida - RM 333829
++ Rodrigo de Almeida Pereira - RM 333241
++ Wellington Moreira Bastos - RM 333878
++ Milton Luiz Ribeiro Junior - RM 333949
