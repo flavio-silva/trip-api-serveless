@@ -24,10 +24,8 @@ public class GetTripByPeriod implements RequestHandler<HandlerRequest, HandlerRe
 			trips = new ArrayList<>();
 		}
 
-		return HandlerResponse
-				.builder()
+		return new HandlerResponse()
 				.setStatusCode(200)
-				.setObjectBody(trips)
-				.build();
+				.setBody(trips);
 	}
 }

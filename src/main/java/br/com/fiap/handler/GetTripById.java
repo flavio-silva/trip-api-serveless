@@ -19,15 +19,13 @@ public class GetTripById implements RequestHandler<HandlerRequest, HandlerRespon
 		Trip trip = this.repository.findById(id);
 
 		if (trip == null) {
-			return HandlerResponse
-					.builder()
-					.setStatusCode(404)
-					.build();
+			return new HandlerResponse()
+					.setStatusCode(404);
+
 		}
 
-		return HandlerResponse.builder()
+		return new HandlerResponse()
 				.setStatusCode(200)
-				.setObjectBody(trip)
-				.build();
+				.setBody(trip);
 	}
 }

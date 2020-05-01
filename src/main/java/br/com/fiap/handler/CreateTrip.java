@@ -14,23 +14,15 @@ public class CreateTrip implements RequestHandler<HandlerRequest, HandlerRespons
 
     @Override
     public HandlerResponse handleRequest(HandlerRequest request, Context context) {
-        Trip trip;
         try {
-            trip = new ObjectMapper().readValue(request.getBody(), Trip.class);
+            Trip trip = new ObjectMapper().readValue(request.getBody(), Trip.class);
+            return new HandlerResponse()
+                    .setBody(service.save(trip))
+                    .setStatusCode(201);
         } catch (IOException exception) {
-            return HandlerResponse
-                    .builder()
-                    .setStatusCode(400)
-                    .setRawBody("Cannot create a trip ")
-                    .build();
+            return new HandlerResponse()
+                    .setBody("Cannot create a trip")
+                    .setStatusCode(400);
         }
-
-        Trip savedTrip = service.save(trip);
-
-        return HandlerResponse
-                .builder()
-                .setStatusCode(201)
-                .setObjectBody(savedTrip)
-                .build();
     }
 }
