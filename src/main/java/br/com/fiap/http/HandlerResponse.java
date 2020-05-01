@@ -1,4 +1,4 @@
-package br.com.fiap.model;
+package br.com.fiap.http;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

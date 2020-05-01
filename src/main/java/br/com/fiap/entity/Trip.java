@@ -1,4 +1,4 @@
-package br.com.fiap.model;
+package br.com.fiap.entity;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
