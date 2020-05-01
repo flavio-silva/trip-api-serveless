@@ -6,6 +6,7 @@
 + MVN CLI
 + AWS CLI
 + Sam CLI
++ GIT
 
 ## Prepare the code
 1. Clone repository: `git clone https://github.com/flavio-silva/trip-api-serveless.git`
